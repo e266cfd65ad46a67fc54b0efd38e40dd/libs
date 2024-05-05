@@ -1,4 +1,4 @@
-local SimpleShindoUi = loadstring(game:HttpGet("https://raw.githubusercontent.com/naypramx/Ui__Project/Script/SimpleShindoUi"))()
+local SimpleShindoUi = loadstring(game:HttpGet("https://raw.githubusercontent.com/drillygzzly/Roblox-UI-Libs/main/Center%20Lib/Center%20Lib%20Source.lua"))()
 
 local Main = SimpleShindoUi:new()
 
