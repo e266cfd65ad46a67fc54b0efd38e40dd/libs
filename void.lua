@@ -34,7 +34,7 @@ section:Button{
     end
 }
 
-local seperator = section:Separator("Separator")
+local separator = section:Separator("Separator")
 --separator:Set("Separator Set")
 
 local toggle = section:Toggle{
@@ -297,16 +297,6 @@ local keybind = section:Keybind{
     end
 }
 
-
---library:SaveConfig("config", true) -- universal config
---library:SaveConfig("config") -- game specific config
---library:DeleteConfig("config", true) -- universal config
---library:DeleteConfig("config") -- game specific config
---library:GetConfigs(true) -- return universal and game specific configs (table)
---library:GetConfigs() -- return game specific configs (table)
---library:LoadConfig("config", true) -- load universal config
---library:LoadConfig("config") -- load game specific config
-
 local configs = main:Tab("Configuration")
 
 local themes = configs:Section{Name = "Theme", Side = "Left"}
@@ -451,123 +441,365 @@ themepickers["Text"] = customtheme:ColorPicker{
 
 library:ConfigIgnore("Text")
 
-themepickers["Disabled Text"] = customtheme:ColorPicker{
-    Name = "Disabled Text",
-    Default = library.theme["Disabled Text"],
-    Flag = "Disabled Text",
+themepickers["Button Background"] = customtheme:ColorPicker{
+    Name = "Button Background",
+    Default = library.theme["Button Background"],
+    Flag = "Button Background",
     Callback = function(color)
-        library:ChangeThemeOption("Disabled Text", color)
+        library:ChangeThemeOption("Button Background", color)
     end
 }
 
-library:ConfigIgnore("Disabled Text")
+library:ConfigIgnore("Button Background")
 
-themepickers["Object Background"] = customtheme:ColorPicker{
-    Name = "Object Background",
-    Default = library.theme["Object Background"],
-    Flag = "Object Background",
+themepickers["Button Border"] = customtheme:ColorPicker{
+    Name = "Button Border",
+    Default = library.theme["Button Border"],
+    Flag = "Button Border",
     Callback = function(color)
-        library:ChangeThemeOption("Object Background", color)
+        library:ChangeThemeOption("Button Border", color)
     end
 }
 
-library:ConfigIgnore("Object Background")
+library:ConfigIgnore("Button Border")
 
-themepickers["Object Border"] = customtheme:ColorPicker{
-    Name = "Object Border",
-    Default = library.theme["Object Border"],
-    Flag = "Object Border",
+themepickers["Toggle Background"] = customtheme:ColorPicker{
+    Name = "Toggle Background",
+    Default = library.theme["Toggle Background"],
+    Flag = "Toggle Background",
     Callback = function(color)
-        library:ChangeThemeOption("Object Border", color)
+        library:ChangeThemeOption("Toggle Background", color)
     end
 }
 
-library:ConfigIgnore("Object Border")
+library:ConfigIgnore("Toggle Background")
 
-themepickers["Dropdown Option Background"] = customtheme:ColorPicker{
-    Name = "Dropdown Option Background",
-    Default = library.theme["Dropdown Option Background"],
-    Flag = "Dropdown Option Background",
+themepickers["Toggle Border"] = customtheme:ColorPicker{
+    Name = "Toggle Border",
+    Default = library.theme["Toggle Border"],
+    Flag = "Toggle Border",
     Callback = function(color)
-        library:ChangeThemeOption("Dropdown Option Background", color)
+        library:ChangeThemeOption("Toggle Border", color)
     end
 }
 
-library:ConfigIgnore("Dropdown Option Background")
+library:ConfigIgnore("Toggle Border")
 
-local configsection = configs:Section{Name = "Configs", Side = "Left"}
-
-local configlist = configsection:Dropdown{
-    Name = "Configs",
-    Content = library:GetConfigs(), -- GetConfigs(true) if you want universal configs
-    Flag = "Config Dropdown"
-}
-
-library:ConfigIgnore("Config Dropdown")
-
-local loadconfig = configsection:Button{
-    Name = "Load Config",
-    Callback = function()
-        library:LoadConfig(library.flags["Config Dropdown"]) -- LoadConfig(library.flags["Config Dropdown"], true)  if you want universal configs
+themepickers["Slider Background"] = customtheme:ColorPicker{
+    Name = "Slider Background",
+    Default = library.theme["Slider Background"],
+    Flag = "Slider Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Slider Background", color)
     end
 }
 
-local delconfig = configsection:Button{
-    Name = "Delete Config",
-    Callback = function()
-        library:DeleteConfig(library.flags["Config Dropdown"]) -- DeleteConfig(library.flags["Config Dropdown"], true)  if you want universal configs
-        configlist:Refresh(library:GetConfigs())
+library:ConfigIgnore("Slider Background")
+
+themepickers["Slider Border"] = customtheme:ColorPicker{
+    Name = "Slider Border",
+    Default = library.theme["Slider Border"],
+    Flag = "Slider Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Slider Border", color)
     end
 }
 
+library:ConfigIgnore("Slider Border")
 
-local configbox = configsection:Box{
-    Name = "Config Name",
-    Placeholder = "Config Name",
-    Flag = "Config Name"
-}
-
-library:ConfigIgnore("Config Name")
-
-local save = configsection:Button{
-    Name = "Save Config",
-    Callback = function()
-        library:SaveConfig(library.flags["Config Dropdown"] or library.flags["Config Name"]) -- SaveConfig(library.flags["Config Name"], true) if you want universal configs
-        configlist:Refresh(library:GetConfigs())
+themepickers["Dropdown Background"] = customtheme:ColorPicker{
+    Name = "Dropdown Background",
+    Default = library.theme["Dropdown Background"],
+    Flag = "Dropdown Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Dropdown Background", color)
     end
 }
 
-local keybindsection = configs:Section{Name = "UI Toggle Keybind", Side = "Left"}
+library:ConfigIgnore("Dropdown Background")
 
-keybindsection:Keybind{
-    Name = "UI Toggle",
-    Flag = "UI Toggle",
-    Default = Enum.KeyCode.RightShift,
-    Blacklist = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2, Enum.UserInputType.MouseButton3},
-    Callback = function(_, fromsetting)
-        if not fromsetting then
-            library:Close()
-        end
+themepickers["Dropdown Border"] = customtheme:ColorPicker{
+    Name = "Dropdown Border",
+    Default = library.theme["Dropdown Border"],
+    Flag = "Dropdown Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Dropdown Border", color)
     end
 }
 
+library:ConfigIgnore("Dropdown Border")
 
-local scrolling = main:Tab("Scrolling Columns")
-
-for i = 1, 20 do
-    local sec = scrolling:Section{
-        Name = tostring(math.random(2000, 20000000)),
-        Side = math.random(1, 2) == 1 and "Left" or "Right"
-    }
-
-    for i = 1, math.random(3, 10) do
-        if math.random(1, 2) == 1 then
-            sec:Label(tostring(math.random(2000, 20000000)))
-        else
-            sec:Button{Name = tostring(math.random(2000, 20000000))}
-        end
+themepickers["Dropdown Item Background"] = customtheme:ColorPicker{
+    Name = "Dropdown Item Background",
+    Default = library.theme["Dropdown Item Background"],
+    Flag = "Dropdown Item Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Dropdown Item Background", color)
     end
-end
+}
 
---library:Close()
---library:Unload()
+library:ConfigIgnore("Dropdown Item Background")
+
+themepickers["Dropdown Item Border"] = customtheme:ColorPicker{
+    Name = "Dropdown Item Border",
+    Default = library.theme["Dropdown Item Border"],
+    Flag = "Dropdown Item Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Dropdown Item Border", color)
+    end
+}
+
+library:ConfigIgnore("Dropdown Item Border")
+
+themepickers["Dropdown Item Text"] = customtheme:ColorPicker{
+    Name = "Dropdown Item Text",
+    Default = library.theme["Dropdown Item Text"],
+    Flag = "Dropdown Item Text",
+    Callback = function(color)
+        library:ChangeThemeOption("Dropdown Item Text", color)
+    end
+}
+
+library:ConfigIgnore("Dropdown Item Text")
+
+themepickers["Box Background"] = customtheme:ColorPicker{
+    Name = "Box Background",
+    Default = library.theme["Box Background"],
+    Flag = "Box Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Box Background", color)
+    end
+}
+
+library:ConfigIgnore("Box Background")
+
+themepickers["Box Border"] = customtheme:ColorPicker{
+    Name = "Box Border",
+    Default = library.theme["Box Border"],
+    Flag = "Box Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Box Border", color)
+    end
+}
+
+library:ConfigIgnore("Box Border")
+
+themepickers["Text Button Background"] = customtheme:ColorPicker{
+    Name = "Text Button Background",
+    Default = library.theme["Text Button Background"],
+    Flag = "Text Button Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Text Button Background", color)
+    end
+}
+
+library:ConfigIgnore("Text Button Background")
+
+themepickers["Text Button Border"] = customtheme:ColorPicker{
+    Name = "Text Button Border",
+    Default = library.theme["Text Button Border"],
+    Flag = "Text Button Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Text Button Border", color)
+    end
+}
+
+library:ConfigIgnore("Text Button Border")
+
+themepickers["Scrolling Dropdown Background"] = customtheme:ColorPicker{
+    Name = "Scrolling Dropdown Background",
+    Default = library.theme["Scrolling Dropdown Background"],
+    Flag = "Scrolling Dropdown Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Scrolling Dropdown Background", color)
+    end
+}
+
+library:ConfigIgnore("Scrolling Dropdown Background")
+
+themepickers["Scrolling Dropdown Border"] = customtheme:ColorPicker{
+    Name = "Scrolling Dropdown Border",
+    Default = library.theme["Scrolling Dropdown Border"],
+    Flag = "Scrolling Dropdown Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Scrolling Dropdown Border", color)
+    end
+}
+
+library:ConfigIgnore("Scrolling Dropdown Border")
+
+themepickers["Scrolling Dropdown Item Background"] = customtheme:ColorPicker{
+    Name = "Scrolling Dropdown Item Background",
+    Default = library.theme["Scrolling Dropdown Item Background"],
+    Flag = "Scrolling Dropdown Item Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Scrolling Dropdown Item Background", color)
+    end
+}
+
+library:ConfigIgnore("Scrolling Dropdown Item Background")
+
+themepickers["Scrolling Dropdown Item Border"] = customtheme:ColorPicker{
+    Name = "Scrolling Dropdown Item Border",
+    Default = library.theme["Scrolling Dropdown Item Border"],
+    Flag = "Scrolling Dropdown Item Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Scrolling Dropdown Item Border", color)
+    end
+}
+
+library:ConfigIgnore("Scrolling Dropdown Item Border")
+
+themepickers["Scrolling Dropdown Item Text"] = customtheme:ColorPicker{
+    Name = "Scrolling Dropdown Item Text",
+    Default = library.theme["Scrolling Dropdown Item Text"],
+    Flag = "Scrolling Dropdown Item Text",
+    Callback = function(color)
+        library:ChangeThemeOption("Scrolling Dropdown Item Text", color)
+    end
+}
+
+library:ConfigIgnore("Scrolling Dropdown Item Text")
+
+themepickers["Tooltip Background"] = customtheme:ColorPicker{
+    Name = "Tooltip Background",
+    Default = library.theme["Tooltip Background"],
+    Flag = "Tooltip Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Tooltip Background", color)
+    end
+}
+
+library:ConfigIgnore("Tooltip Background")
+
+themepickers["Tooltip Text"] = customtheme:ColorPicker{
+    Name = "Tooltip Text",
+    Default = library.theme["Tooltip Text"],
+    Flag = "Tooltip Text",
+    Callback = function(color)
+        library:ChangeThemeOption("Tooltip Text", color)
+    end
+}
+
+library:ConfigIgnore("Tooltip Text")
+
+themepickers["Notification Background"] = customtheme:ColorPicker{
+    Name = "Notification Background",
+    Default = library.theme["Notification Background"],
+    Flag = "Notification Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Notification Background", color)
+    end
+}
+
+library:ConfigIgnore("Notification Background")
+
+themepickers["Notification Border"] = customtheme:ColorPicker{
+    Name = "Notification Border",
+    Default = library.theme["Notification Border"],
+    Flag = "Notification Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Notification Border", color)
+    end
+}
+
+library:ConfigIgnore("Notification Border")
+
+themepickers["Notification Text"] = customtheme:ColorPicker{
+    Name = "Notification Text",
+    Default = library.theme["Notification Text"],
+    Flag = "Notification Text",
+    Callback = function(color)
+        library:ChangeThemeOption("Notification Text", color)
+    end
+}
+
+library:ConfigIgnore("Notification Text")
+
+themepickers["Scroll Bar Background"] = customtheme:ColorPicker{
+    Name = "Scroll Bar Background",
+    Default = library.theme["Scroll Bar Background"],
+    Flag = "Scroll Bar Background",
+    Callback = function(color)
+        library:ChangeThemeOption("Scroll Bar Background", color)
+    end
+}
+
+library:ConfigIgnore("Scroll Bar Background")
+
+themepickers["Scroll Bar Border"] = customtheme:ColorPicker{
+    Name = "Scroll Bar Border",
+    Default = library.theme["Scroll Bar Border"],
+    Flag = "Scroll Bar Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Scroll Bar Border", color)
+    end
+}
+
+library:ConfigIgnore("Scroll Bar Border")
+
+themepickers["Scroll Bar Slider"] = customtheme:ColorPicker{
+    Name = "Scroll Bar Slider",
+    Default = library.theme["Scroll Bar Slider"],
+    Flag = "Scroll Bar Slider",
+    Callback = function(color)
+        library:ChangeThemeOption("Scroll Bar Slider", color)
+    end
+}
+
+library:ConfigIgnore("Scroll Bar Slider")
+
+themepickers["Border"] = customtheme:ColorPicker{
+    Name = "Border",
+    Default = library.theme["Border"],
+    Flag = "Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Border", color)
+    end
+}
+
+library:ConfigIgnore("Border")
+
+themepickers["Placeholder Text"] = customtheme:ColorPicker{
+    Name = "Placeholder Text",
+    Default = library.theme["Placeholder Text"],
+    Flag = "Placeholder Text",
+    Callback = function(color)
+        library:ChangeThemeOption("Placeholder Text", color)
+    end
+}
+
+library:ConfigIgnore("Placeholder Text")
+
+themepickers["Indicator"] = customtheme:ColorPicker{
+    Name = "Indicator",
+    Default = library.theme["Indicator"],
+    Flag = "Indicator",
+    Callback = function(color)
+        library:ChangeThemeOption("Indicator", color)
+    end
+}
+
+library:ConfigIgnore("Indicator")
+
+themepickers["Tooltip Arrow"] = customtheme:ColorPicker{
+    Name = "Tooltip Arrow",
+    Default = library.theme["Tooltip Arrow"],
+    Flag = "Tooltip Arrow",
+    Callback = function(color)
+        library:ChangeThemeOption("Tooltip Arrow", color)
+    end
+}
+
+library:ConfigIgnore("Tooltip Arrow")
+
+themepickers["Tooltip Border"] = customtheme:ColorPicker{
+    Name = "Tooltip Border",
+    Default = library.theme["Tooltip Border"],
+    Flag = "Tooltip Border",
+    Callback = function(color)
+        library:ChangeThemeOption("Tooltip Border", color)
+    end
+}
+
+library:ConfigIgnore("Tooltip Border")
