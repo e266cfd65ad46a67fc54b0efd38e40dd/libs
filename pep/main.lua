@@ -1,65 +1,45 @@
 local library = {
-	Version = "0.36",
-	WorkspaceName = "Pepsi Lib",
-	flags = {},
-	signals = {},
-	objects = {},
-	elements = {},
-	globals = {},
-	subs = {},
-	colored = {},
-	configuration = {
-		hideKeybind = Enum.KeyCode.RightShift,
-		smoothDragging = false,
-		easingStyle = Enum.EasingStyle.Quart,
-		easingDirection = Enum.EasingDirection.Out
-	},
-	colors = {
-		main = Color3.fromRGB(255, 39, 39),
-		background = Color3.fromRGB(40, 40, 40),
-		outerBorder = Color3.fromRGB(15, 15, 15),
-		innerBorder = Color3.fromRGB(73, 63, 73),
-		topGradient = Color3.fromRGB(35, 35, 35),
-		bottomGradient = Color3.fromRGB(29, 29, 29),
-		sectionBackground = Color3.fromRGB(35, 34, 34),
-		section = Color3.fromRGB(176, 175, 176),
-		otherElementText = Color3.fromRGB(129, 127, 129),
-		elementText = Color3.fromRGB(147, 145, 147),
-		elementBorder = Color3.fromRGB(20, 20, 20),
-		selectedOption = Color3.fromRGB(55, 55, 55),
-		unselectedOption = Color3.fromRGB(40, 40, 40),
-		hoveredOptionTop = Color3.fromRGB(65, 65, 65),
-		unhoveredOptionTop = Color3.fromRGB(50, 50, 50),
-		hoveredOptionBottom = Color3.fromRGB(45, 45, 45),
-		unhoveredOptionBottom = Color3.fromRGB(35, 35, 35),
-		tabText = Color3.fromRGB(185, 185, 185)
-	},
-	gui_parent = (function()
-		local x, c = pcall(function()
-			return game:GetService("CoreGui")
-		end)
-		if x and c then
-			return c
-		end
-		x, c = pcall(function()
-			return (game:IsLoaded() or (game.Loaded:Wait() or 1)) and game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-		end)
-		if x and c then
-			return c
-		end
-		x, c = pcall(function()
-			return game:GetService("StarterGui")
-		end)
-		if x and c then
-			return c
-		end
-		return error("Seriously bad engine. Can't find a place to store the GUI. Robust code can't help this much incompetence.")
-	end)(),
-	colorpicker = false,
-	colorpickerconflicts = {},
-	rainbowflags = {},
-	rainbows = 0,
-	rainbowsg = 0
+    Version = "0.36",
+    WorkspaceName = "Pepsi Lib",
+    flags = {},
+    signals = {},
+    objects = {},
+    elements = {},
+    globals = {},
+    subs = {},
+    colored = {},
+    configuration = {
+        hideKeybind = Enum.KeyCode.RightShift,
+        smoothDragging = false,
+        easingStyle = Enum.EasingStyle.Quart,
+        easingDirection = Enum.EasingDirection.Out
+    },
+    colors = {
+        main = Color3.fromRGB(255, 39, 39),
+        background = Color3.fromRGB(40, 40, 40),
+        outerBorder = Color3.fromRGB(15, 15, 15),
+        innerBorder = Color3.fromRGB(73, 63, 73),
+        topGradient = Color3.fromRGB(35, 35, 35),
+        bottomGradient = Color3.fromRGB(29, 29, 29),
+        sectionBackground = Color3.fromRGB(35, 34, 34),
+        section = Color3.fromRGB(176, 175, 176),
+        otherElementText = Color3.fromRGB(129, 127, 129),
+        elementText = Color3.fromRGB(147, 145, 147),
+        elementBorder = Color3.fromRGB(20, 20, 20),
+        selectedOption = Color3.fromRGB(55, 55, 55),
+        unselectedOption = Color3.fromRGB(40, 40, 40),
+        hoveredOptionTop = Color3.fromRGB(65, 65, 65),
+        unhoveredOptionTop = Color3.fromRGB(50, 50, 50),
+        hoveredOptionBottom = Color3.fromRGB(45, 45, 45),
+        unhoveredOptionBottom = Color3.fromRGB(35, 35, 35),
+        tabText = Color3.fromRGB(185, 185, 185)
+    },
+    gui_parent = game.Players.LocalPlayer:WaitForChild("PlayerGui"),
+    colorpicker = false,
+    colorpickerconflicts = {},
+    rainbowflags = {},
+    rainbows = 0,
+    rainbowsg = 0
 }
 library.Subs = library.subs
 local library_flags = library.flags
